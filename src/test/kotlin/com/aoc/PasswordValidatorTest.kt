@@ -24,10 +24,7 @@ internal class PasswordValidatorTest {
 
     @Test
     fun should_return_the_number_of_valid_passwords() {
-        val inputLines = SumComputerTest::class.java.getResource("/input2.txt")
-            .readText()
-            .split("\n")
-            .filter { it.isNotBlank() }
+        val inputLines = Utils.readInputLines("2")
 
         val count = inputLines
             .filter { PasswordValidator().isValid(it) }
@@ -56,10 +53,7 @@ internal class PasswordValidatorTest {
 
     @Test
     fun should_return_the_number_of_valid_passwords_for_new_policy() {
-        val inputLines = SumComputerTest::class.java.getResource("/input2.txt")
-            .readText()
-            .split("\n")
-            .filter { it.isNotBlank() }
+        val inputLines = Utils.readInputLines("2")
 
         val count = inputLines
             .filter { PasswordValidator().isValidComparingPositions(it) }

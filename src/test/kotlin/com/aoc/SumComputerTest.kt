@@ -14,10 +14,7 @@ internal class SumComputerTest {
 
     @Test
     fun should_find_2_numbers_that_sum_to_2020_for_input_1_1() {
-        val numbers = SumComputerTest::class.java.getResource("/input1.txt")
-            .readText()
-            .split("\n")
-            .filter { it.isNotBlank() }
+        val numbers = Utils.readInputLines("1")
             .map(String::toInt)
             .toSet()
 
@@ -34,10 +31,7 @@ internal class SumComputerTest {
 
     @Test
     fun should_find_3_numbers_that_sum_to_2020_for_input_1_1() {
-        val numbers = SumComputerTest::class.java.getResource("/input1.txt")
-            .readText()
-            .split("\n")
-            .filter { it.isNotBlank() }
+        val numbers = Utils.readInputLines("1")
             .map(String::toInt)
             .toSet()
 
