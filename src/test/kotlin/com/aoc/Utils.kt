@@ -2,10 +2,14 @@ package com.aoc
 
 class Utils {
     companion object {
-        fun readInputLines(numberOfInput: String): List<String> =
-            Utils::class.java.getResource("/input${numberOfInput}.txt")
+        fun readInputLines(
+            numberOfInput: String,
+            filterLinesPredicate: (String) -> Boolean = { it.isNotBlank() }
+        ): List<String> {
+            return Utils::class.java.getResource("/input${numberOfInput}.txt")
                 .readText()
                 .split("\n")
-                .filter { it.isNotBlank() }
+                .filter(filterLinesPredicate)
+        }
     }
 }
