@@ -2,6 +2,7 @@ import com.aoc.SeatingSystem
 import com.aoc.Utils
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import kotlin.math.sign
 
 internal class SeatingSystemTest {
 
@@ -69,5 +70,12 @@ internal class SeatingSystemTest {
         val result = SeatingSystem(input).findOccupiedSeatsAfterSystemIsStableUsingDirectionMatching()
 
         assertThat(result).isEqualTo(1986)
+    }
+
+    @Test
+    fun a() {
+        val i = 29
+        val negative = "-$i".toInt()
+        println(negative)
     }
 }
