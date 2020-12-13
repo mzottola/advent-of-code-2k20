@@ -13,14 +13,22 @@ class LuggageProcessor(private val input: List<String>) {
     }
 
     fun findIndividualLuggageForAShinyGoldLuggage(): Int {
-        val shinyGoldDirectChildren = getLuggageChildren("shiny gold")
-        val directChildrenLuggageQuantity = shinyGoldDirectChildren
-            .map { it.number }
-            .reduce { acc, i -> acc + i }
-        val everyChildrenLuggageQuantity = shinyGoldDirectChildren
-            .map { findAllCapacity(it) }
-            .reduce { acc, i -> acc + i }
-        return everyChildrenLuggageQuantity + directChildrenLuggageQuantity
+        val shinyGoldDirectChildren = childrenByLuggage.getValue("shiny gold")
+
+        fun recursive(luggages: List<Luggage>): Int {
+            return luggages
+                .map {
+                    val children = childrenByLuggage.getValue(it.name)
+                    if (children.isEmpty()) {
+                        it.number
+                    } else {
+                        it.number + it.number * recursive(children)
+                    }
+                }
+                .sum()
+        }
+
+        return recursive(shinyGoldDirectChildren)
     }
 
     private fun canChildrenContainShinyGoldLuggage(children: List<Luggage>): Boolean {
@@ -33,17 +41,6 @@ class LuggageProcessor(private val input: List<String>) {
                 .map { getLuggageChildren(it.name) }
                 .map { canChildrenContainShinyGoldLuggage(it) }
                 .contains(true)
-    }
-
-    private fun findAllCapacity(luggage: Luggage): Int {
-        val children = getLuggageChildren(luggage.name)
-        if (children.isEmpty()) {
-            return 1
-        }
-        val allChildrenCapacity = children
-            .map { it.number.times(findAllCapacity(it)) }
-            .reduce { acc, i -> acc + i }
-        return luggage.number.times(allChildrenCapacity)
     }
 
     private fun getLuggageChildren(name: String): List<Luggage> {
